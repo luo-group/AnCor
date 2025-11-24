@@ -1,0 +1,16 @@
+model: ESMC
+gpu_number: 4
+shot: 72
+batch_size: 16
+max_epochs: 50
+ini_lr: 1e-4
+min_lr: 5e-5
+lambda_reg: 0.1
+endure_time: 3
+beta: 0.1
+kl_coefficient: 0.2
+lora_r: 8
+lora_alpha: 8
+lora_dropout: 0.1
+
+
