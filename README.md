@@ -107,7 +107,7 @@ the test metrics will be generated in `results/summary_ancor_{args.shot}_{args.p
 
 - **Training size**: For different training sizes, please modify **shot** in `config/training_config.yaml`and change the training hyperparameters in that file accordingly.
 
-- **GPU:** We trained APO using 4 A40 GPUs. According to the GPU numbers you use, please modify **num_processes** and **gpu_number** respectively in `config/parallel_config.yaml` and `config/training_config.yaml`.
+- **GPU:** We trained AnCor using 4 A40 GPUs. According to the GPU numbers you use, please modify **num_processes** and **gpu_number** respectively in `config/parallel_config.yaml` and `config/training_config.yaml`.
 
 
 
