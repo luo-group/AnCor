@@ -13,7 +13,7 @@ warnings.filterwarnings('ignore')
 parser = argparse.ArgumentParser(description='aggregate result!')
 parser.add_argument('--shot', type=int, default=72,
                     help='the shot num')
-parser.add_argument('--method', type=str, help='algorithm name', default='ancor')
+parser.add_argument('--method', type=str, help='algorithm name', default='ancor_esmc')
 parser.add_argument('--dataset', type=str, help='dataset name', required=True)
 parser.add_argument('--prefix', type=str, help='prefix name', default='ancor')
 args = parser.parse_args()
@@ -57,7 +57,7 @@ for rpt in range(5):
         sndcg10 = ndcg(score, gscore, quantile=False, top=10)   #ndcg at rank 10
         
 
-        out = pd.DataFrame({'ndcg10':sndcg10, 'ndcg_01':sndcg_q, 'method':f'{args.prefix}', 'repeat_seed':rpt}, index=[f'{fname}_{rpt}'])
+        out = pd.DataFrame({'dataset':fname,'ndcg10':sndcg10, 'ndcg_01':sndcg_q, 'method':f'{args.prefix}', 'repeat_seed':rpt}, index=[f'{fname}_{rpt}'])
         summary = pd.concat([summary, out], axis=0)
 
 if not os.path.exists('results'):

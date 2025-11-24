@@ -41,9 +41,9 @@ class Mutation_Set_ProtenGym(Dataset):
         self.wt_stat_file = pd.read_excel('data/wt_summary.xlsx')
         self.cut_off = float(self.wt_stat_file[self.wt_stat_file['protein_dataset'] == fname]['wt_fitness'])
         
-        wt_path = os.path.join('data', 'wt', f'{fname}.csv')
-        wt = pd.read_csv(wt_path)
-        wt = wt['wt'][0]
+        # wt_path = os.path.join('data', 'wt', f'{fname}.csv')
+        # wt = pd.read_csv(wt_path)
+        wt = self.wt_stat_file[self.wt_stat_file['protein_dataset'] == fname]['seq'].values[0]
 
         if len(wt) > seq_len:
             cut_len = len(wt) - seq_len

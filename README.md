@@ -56,8 +56,9 @@ To run the customized data using our model, please follow the steps below:
 
 2. Find the wild-type fitness value for the wild-type sequence, please put it in `data/wt_summary.xlsx`. The file should have the following necessary columns:
 
-   - **protein_dataset**: Your dataset name
+   - **protein_dataset**: Your dataset name.
    - **wt_fitness**: the ground truth fitness value for the wild-type. Please ensure that higher scores indicate better fitness.
+   - **seq**: the wild-type sequence.
 
 
 
@@ -75,9 +76,9 @@ accelerate launch --config_file config/parallel_config.yaml ancor/train.py \
 --prefix ancor_72shot 
 ```
 
-​	`--config`: (required) specifies the file containing training hyperparameters
+​	`--config`: (required) specifies the file containing training hyperparameters.
 
-​	`--dataset`: (required) specifies the dataset name
+​	`--dataset`: (required) specifies the dataset name.
 
 ​	`--sample_seed`: (optional) specify the random seed when sampling testing and training data.
 
@@ -88,14 +89,16 @@ accelerate launch --config_file config/parallel_config.yaml ancor/train.py \
 After training, please use the following scripts to generate evaluation metrics on the test set:
 
 ```
-python ancor/generate_metric_summary.py --dataset --shot $shot
+python ancor/generate_metric_summary.py --dataset $dataset --shot $shot --prefix $prefix
 ```
 
-​	`--shot`:  (required) specifies the training size
+​	`--dataset`: (required) specifies the dataset name.
 
-​	`--prefix`:  (required) specifies the prefix you used in training
+​	`--shot`:  (required) specifies the training size.
 
-the test metrics will be generated in `results/summary_ancor_{args.shot}_{args.prefix}.xlsx`
+​	`--prefix`:  (required) specifies the prefix you used in training.
+
+the test metrics will be generated in `results/summary_ancor_{args.shot}_{args.prefix}.xlsx`.
 
 
 
