@@ -1,7 +1,5 @@
 # AnCor
 
-AnCor is a calibrated functional alignment framework that aligns pretrained protein language models with experimentally measured fitness.  By leveraging the wild type as a global reference, AnCor enables robust discovery of better-than-wildtype variants even under extremely low-N conditions.
-
 ---
 
 
