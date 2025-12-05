@@ -17,19 +17,6 @@ def get_quantile(data, wt):
     return index, quantile
 
 
-def cut_seqlen(data, cut_len):
-    for i in range(len(data)):
-        data.loc[i, 'mutated_sequence'] = data.loc[i, 'mutated_sequence'][cut_len:]
-        pre_pos = data.loc[i, 'mutated_position']
-        if type(pre_pos) != str:
-            data.loc[i, 'mutated_position'] = pre_pos-cut_len
-        else:
-            temp_pos = []
-            for u in pre_pos.split(','):
-                temp_pos.append(str(int(u)-cut_len))
-            data.loc[i, 'mutated_position'] = ','.join(temp_pos)
-    return data
-
 
 
 class Mutation_Set_ProtenGym(Dataset):
@@ -45,20 +32,13 @@ class Mutation_Set_ProtenGym(Dataset):
         # wt = pd.read_csv(wt_path)
         wt = self.wt_stat_file[self.wt_stat_file['protein_dataset'] == fname]['seq'].values[0]
 
-        if len(wt) > seq_len:
-            cut_len = len(wt) - seq_len
-            print(f'===={fname} cut len :{cut_len}!=====')
-            wt = wt[cut_len:]
-            self.data = cut_seqlen(self.data, cut_len)
 
-
-        self.seq, self.attention_mask = tokenizer(list(self.data['mutated_sequence']), padding=False,
-                                                  truncation=True,
-                                                  max_length=self.seq_len).values()
+        self.seq, self.attention_mask = tokenizer(list(self.data['mutated_sequence']), padding=False, truncation=False
+                                                ).values()
 
         target = [wt]*len(self.data)
-        self.target, self.tgt_mask = tokenizer(target, padding=False, truncation=True,
-                                               max_length=self.seq_len).values()
+        self.target, self.tgt_mask = tokenizer(target, padding=False, truncation=False
+                                               ).values()
         self.score = torch.tensor(np.array(self.data['DMS_score']))
         self.pid = np.asarray(data['PID'])
 
